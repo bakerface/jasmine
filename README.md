@@ -6,20 +6,7 @@ This test framework is intended to be a minimalistic, bare-bones framework.
 In fact, the framework only consists of a single header file that contains a few macros.
 A simple example for how to use the framework is below.
 
-<pre>
-int main(void) {
-	jasmine_t jasmine;
-	jasmine_init(&jasmine);
-  
-  	/* run each of the tests here */
-	example_test(&jasmine);
-
-	printf("\r\njasmine: %u passed, %u failed\r\n", jasmine.passed, jasmine.failed);
-	return jasmine.failed;
-}
-</pre>
-
-<pre>
+~~~~ c
 void example_test(jasmine_t *jasmine) {
 	example_t example;
 
@@ -45,4 +32,16 @@ void example_test(jasmine_t *jasmine) {
 		}
 	}
 }
-</pre>
+
+int main(void) {
+	jasmine_t jasmine;
+	jasmine_init(&jasmine);
+  
+  	/* run each of the tests here */
+	example_test(&jasmine);
+
+	printf("\r\njasmine: %u passed, %u failed\r\n", jasmine.passed, jasmine.failed);
+	return jasmine.failed;
+}
+~~~~
+
