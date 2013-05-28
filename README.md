@@ -1,7 +1,10 @@
 jasmine
 =======
 
-A port of the Jasmine test framework to ANSI C
+A port of the Jasmine test framework to ANSI C.
+This test framework is intended to be a minimalistic, bare-bones framework.
+In fact, the framework only consists of a single header file that contains a few macros.
+A simple example for how to use the framework is below.
 
 <pre>
 int main(void) {
