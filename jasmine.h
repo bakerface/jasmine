@@ -16,7 +16,7 @@
 #define JASMINE_STATE_FINISHED 3
 
 typedef struct jasmine {
-  unsigned char state;
+	unsigned char state;
 	unsigned char group;
 	unsigned short current;
 	unsigned short last;
