@@ -45,3 +45,12 @@ int main(void) {
 }
 ~~~~
 
+Running the example will output each test with a pass or fail as well as total test statistics.
+
+<pre>
+an example
+ ✓ should be able to pass
+ ✗ should be able to fail
+
+jasmine: 1 passed, 1 failed
+</pre>
