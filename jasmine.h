@@ -16,55 +16,55 @@
 #define JASMINE_STATE_FINISHED 3
 
 typedef struct jasmine {
-	unsigned char state;
-	unsigned char group;
-	unsigned short current;
-	unsigned short last;
-	unsigned short passed;
-	unsigned short failed;
+    unsigned char state;
+    unsigned char group;
+    unsigned short current;
+    unsigned short last;
+    unsigned short passed;
+    unsigned short failed;
 } jasmine_t;
 
 #define jasmine_init(jasmine) do { \
-	(jasmine)->state = JASMINE_STATE_BEFORE; \
-	(jasmine)->group = 0; \
-	(jasmine)->current = 0; \
-	(jasmine)->last = 0; \
-	(jasmine)->passed = 0; \
-	(jasmine)->failed = 0; \
+    (jasmine)->state = JASMINE_STATE_BEFORE; \
+    (jasmine)->group = 0; \
+    (jasmine)->current = 0; \
+    (jasmine)->last = 0; \
+    (jasmine)->passed = 0; \
+    (jasmine)->failed = 0; \
 } while (0)
 
 #define jasmine_describe(jasmine, what) \
-	for ((jasmine)->state = JASMINE_STATE_BEFORE, \
-			(jasmine)->current = 0, \
-			(jasmine)->last = 0, \
-			puts(what); \
-		JASMINE_STATE_FINISHED != (jasmine)->state; )
+    for ((jasmine)->state = JASMINE_STATE_BEFORE, \
+            (jasmine)->current = 0, \
+            (jasmine)->last = 0, \
+            puts(what); \
+        JASMINE_STATE_FINISHED != (jasmine)->state; )
 
 #define jasmine_before(jasmine) \
-	for (; JASMINE_STATE_BEFORE == (jasmine)->state; \
-		(jasmine)->state = JASMINE_STATE_IT)
+    for (; JASMINE_STATE_BEFORE == (jasmine)->state; \
+        (jasmine)->state = JASMINE_STATE_IT)
 
 #define jasmine_it(jasmine, should) \
-	for ((jasmine)->group = 1, \
-			(jasmine)->last = (unsigned short) ((jasmine)->last < __LINE__ \
-			? __LINE__ : (jasmine)->last); \
-		JASMINE_STATE_IT == (jasmine)->state \
-			&& (jasmine)->current < __LINE__ \
-			&& (__LINE__ == ((jasmine)->current = __LINE__)); \
-		(jasmine)->state = JASMINE_STATE_AFTER, \
-			((jasmine)->group \
-			? ((jasmine)->passed++, puts(" ✓ " should), 1) \
-			: ((jasmine)->failed++, puts(" ✗ " should), 1)))
+    for ((jasmine)->group = 1, \
+            (jasmine)->last = (unsigned short) ((jasmine)->last < __LINE__ \
+            ? __LINE__ : (jasmine)->last); \
+        JASMINE_STATE_IT == (jasmine)->state \
+            && (jasmine)->current < __LINE__ \
+            && (__LINE__ == ((jasmine)->current = __LINE__)); \
+        (jasmine)->state = JASMINE_STATE_AFTER, \
+            ((jasmine)->group \
+            ? ((jasmine)->passed++, puts(" ✓ " should), 1) \
+            : ((jasmine)->failed++, puts(" ✗ " should), 1)))
 
 #define jasmine_after(jasmine) \
-	for (; JASMINE_STATE_AFTER == (jasmine)->state; \
-		(jasmine)->state = ((jasmine)->current == (jasmine)->last) \
-			? JASMINE_STATE_FINISHED : JASMINE_STATE_BEFORE)
+    for (; JASMINE_STATE_AFTER == (jasmine)->state; \
+        (jasmine)->state = ((jasmine)->current == (jasmine)->last) \
+            ? JASMINE_STATE_FINISHED : JASMINE_STATE_BEFORE)
 
-#define jasmine_expect(jasmine, condition) do { \
-	if (!(condition)) { \
-		(jasmine)->group = 0; \
-	} \
-} while (0)
+#define jasmine_expect(jasmine, condition) \
+    if (!(condition)) { \
+        (jasmine)->group = 0; \
+        continue; \
+    }
 
 #endif /* JASMINE_H_ */
