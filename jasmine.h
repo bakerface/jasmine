@@ -22,6 +22,7 @@ typedef struct jasmine {
     unsigned short last;
     unsigned short passed;
     unsigned short failed;
+    const char *reason;
 } jasmine_t;
 
 #define jasmine_init(jasmine) do { \
@@ -31,6 +32,7 @@ typedef struct jasmine {
     (jasmine)->last = 0; \
     (jasmine)->passed = 0; \
     (jasmine)->failed = 0; \
+    (jasmine)->reason = 0; \
 } while (0)
 
 #define jasmine_describe(jasmine, what) \
@@ -53,8 +55,9 @@ typedef struct jasmine {
             && (__LINE__ == ((jasmine)->current = __LINE__)); \
         (jasmine)->state = JASMINE_STATE_AFTER, \
             ((jasmine)->group \
-            ? ((jasmine)->passed++, puts(" ✓ " should), 1) \
-            : ((jasmine)->failed++, puts(" ✗ " should), 1)))
+            ? ((jasmine)->passed++, printf(" ✓ " should "\r\n"), 1) \
+            : ((jasmine)->failed++, printf(" ✗ " should ": %s\r\n", \
+                (jasmine)->reason), 1)))
 
 #define jasmine_after(jasmine) \
     for (; JASMINE_STATE_AFTER == (jasmine)->state; \
@@ -64,6 +67,7 @@ typedef struct jasmine {
 #define jasmine_expect(jasmine, condition) \
     if (!(condition)) { \
         (jasmine)->group = 0; \
+        (jasmine)->reason = #condition; \
         continue; \
     }
 
