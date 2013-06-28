@@ -56,7 +56,7 @@ typedef struct jasmine {
         (jasmine)->state = JASMINE_STATE_AFTER, \
             ((jasmine)->group \
             ? ((jasmine)->passed++, printf(" ✓ " should "\r\n"), 1) \
-            : ((jasmine)->failed++, printf(" ✗ " should ": %s\r\n", \
+            : ((jasmine)->failed++, printf(" ✗ " should ": expected %s\r\n", \
                 (jasmine)->reason), 1)))
 
 #define jasmine_after(jasmine) \
