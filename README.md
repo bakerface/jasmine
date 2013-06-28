@@ -50,7 +50,7 @@ Running the example will output each test with a pass or fail as well as total t
 <pre>
 an example
  ✓ should be able to pass
- ✗ should be able to fail
+ ✗ should be able to fail: expected 0 == 1
 
 jasmine: 1 passed, 1 failed
 </pre>
