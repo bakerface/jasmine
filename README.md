@@ -40,7 +40,7 @@ int main(void) {
   	/* run each of the tests here */
 	example_test(&jasmine);
 
-	printf("\r\njasmine: %u passed, %u failed\r\n", jasmine.passed, jasmine.failed);
+	printf("jasmine: %u passed, %u failed\r\n", jasmine.passed, jasmine.failed);
 	return jasmine.failed;
 }
 ~~~~
