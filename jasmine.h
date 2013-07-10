@@ -40,7 +40,7 @@ typedef struct jasmine {
             (jasmine)->current = 0, \
             (jasmine)->last = 0, \
             puts(what); \
-        JASMINE_STATE_FINISHED != (jasmine)->state; )
+        (JASMINE_STATE_FINISHED == (jasmine)->state) ? (puts(""), 0) : 1; )
 
 #define jasmine_before(jasmine) \
     for (; JASMINE_STATE_BEFORE == (jasmine)->state; \
