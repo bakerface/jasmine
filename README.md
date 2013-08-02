@@ -23,12 +23,17 @@ void example_test(jasmine_t *jasmine) {
 
 		jasmine_it(jasmine, "should be able to pass") {
 			/* this will get called first */
-			jasmine_expect(jasmine, 1 == 1);
+			jasmine_expect(jasmine, example_pass(&example));
 		}
 
 		jasmine_it(jasmine, "should be able to fail") {
 			/* this will get called second */
-			jasmine_expect(jasmine, 0 == 1);
+			jasmine_expect(jasmine, example_fail(&example));
+		}
+		
+		jasmine_it(jasmine, "should be able to ignore") {
+			/* this will get called third */
+			/* there is no expect in here so the test is ignored */
 		}
 	}
 }
@@ -40,7 +45,9 @@ int main(void) {
   	/* run each of the tests here */
 	example_test(&jasmine);
 
-	printf("jasmine: %u passed, %u failed\r\n", jasmine.passed, jasmine.failed);
+	printf("jasmine: %u passed, %u failed, %u ignored, %u expects\r\n",
+        	jasmine.passed, jasmine.failed, jasmine.ignored, jasmine.expects);
+
 	return jasmine.failed;
 }
 ~~~~
@@ -50,7 +57,8 @@ Running the example will output each test with a pass or fail as well as total t
 <pre>
 an example
  ✓ should be able to pass
- ✗ should be able to fail: expected 0 == 1
+ ✗ should be able to fail: expected example_fail(&example)
+ ! should be able to ignore
 
-jasmine: 1 passed, 1 failed
+jasmine: 1 passed, 1 failed, 1 ignored, 2 expects
 </pre>
