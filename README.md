@@ -10,7 +10,8 @@ A simple example for how to use the framework is below.
 
 int main(void) {
   describe("a test") {
-    
+    int i;
+
     /* optional: called before each 'it' */
     before {
       i = 0;
